@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Books</title>
+</head>
+<body>
+  <h1>Book Information</h1>
+  <div id="output"></div>
+
+  <script>
+    function addLine(parent, text) {
+      const p = document.createElement("p");
+      p.textContent = text;
+      parent.appendChild(p);
+    }
+
+    async function loadBooks() {
+      const output = document.getElementById("output");
+      try {
+        const response = await fetch("books.json");
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        const data = await response.json();
+        const books = data.books;
+
+        // (a) title of the first book
+        addLine(output, "First book title: " + books[0].title);
+
+        // (b) author of the second book
+        addLine(output, "Second book author: " + books[1].author);
+
+        // (c) genres grouped by book title
+        const heading = document.createElement("h2");
+        heading.textContent = "Genres";
+        output.appendChild(heading);
+
+        const list = document.createElement("ul");
+        books.forEach(book => {
+          const li = document.createElement("li");
+          li.textContent = book.title + " — " + book.genres.join(", ");
+          list.appendChild(li);
+        });
+        output.appendChild(list);
+
+      } catch (error) {
+        output.textContent =
+          "Sorry, the book data could not be loaded. Please try again later.";
+        console.error(error);
+      }
+    }
+
+    loadBooks();
+  </script>
+</body>
+</html>
