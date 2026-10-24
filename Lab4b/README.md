@@ -102,7 +102,3 @@ Both ways do the same job. jQuery is just shorter.
 ### Question 3
 ![jQuery result](screenshots/q3-result.png)
 ![Button alert](screenshots/q3-alert.png)
-
-## GitHub link
-
-`<paste your repository URL here>`
